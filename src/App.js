@@ -40,27 +40,54 @@ const MovieForm = (props) => {
 }
 
 function App() {
+  const [movieList, setMovieList] = useState("")////Part 2 #5
+  console.log(movieList, movieList)
+  const handleAddMovie = (newMovie)=>{////Part 2 #5
+  const movieListCopy = [...movieList];
+  movieListCopy.push("newMovie");
+  setMovieList("movieListCopy") 
+  } 
   return (
     <div className="App App-header">
-   <MovieForm/>
+    <MovieForm handleAddMovie={handleAddMovie}/>
+    <MoviesDisplay/>
+
+    <button onClick={(props)=>{
+      const newMovie = {
+        ...movieList,
+        title: "",
+        director: "",
+        plot: ""
+      };
+      props.handleAddMovie("newMovie");
+    }}>Add Movie</button> 
+    
 </div>
   );
 }
 export default App;
 
 
-// function App() {
 
-//   const firstName = "Orlando"
+// ***************PROBLEM 6 ***********/
+const MoviesDisplay = (props)=> {
+  const [movieList, setMovieList] = useState("")
+  return <div> {props.movieList.map((movie,index)=>{
+    return(
+      <MovieItem movie={movie} key={index}/>
+    )
+  })}</div>;
+  
+}
 
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         {firstName}
-//       </header>
-//     </div>
-//   );
-// }
+const MovieItem = (props)=> {// do i need to define a variable above the return statement
+  return <div>Hello, {props.movie}
+  <h2>Title: {props.movie.title}</h2>
+		<p>Director: {props.movie.director}</p>
+  </div>;
+  
+}
 
-// export default App;
+
+
 
